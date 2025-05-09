@@ -37,4 +37,4 @@ class HTMLNode:
         string = " "
         for key, val in self.props.items():
             string += f'{key}="{val}" '
-        return string
+        return string.rstrip()
