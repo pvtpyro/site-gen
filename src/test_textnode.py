@@ -4,7 +4,6 @@ from leafnode import LeafNode
 from textnode import TextNode, TextType, text_node_to_html_node
 from functions import split_nodes_delimiter
 
-
 class TestTextNode(unittest.TestCase):
     def test_eq(self):
         node = TextNode("This is a text node", TextType.BOLD)
@@ -36,7 +35,7 @@ class TestTextNode(unittest.TestCase):
         node = TextNode("This is text with a `code block`", TextType.NORMAL)
         new_nodes = split_nodes_delimiter([node], "`", TextType.CODE)
         should_be = [TextNode("This is text with a ", TextType.NORMAL, None), TextNode("code block", TextType.CODE, None), TextNode("", TextType.NORMAL, None)]
-        print(new_nodes)
+        # print(new_nodes)
         self.assertEqual(new_nodes, should_be)
 
 if __name__ == "__main__":
