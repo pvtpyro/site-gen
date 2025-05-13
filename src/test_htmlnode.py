@@ -38,16 +38,16 @@ class TestHTMLNode(unittest.TestCase):
     def test_split_images(self):
         node = TextNode(
             "This is text with an ![image](https://i.imgur.com/zjjcJKZ.png) and another ![second image](https://i.imgur.com/3elNhQu.png)",
-            TextType.NORMAL,
+            TextType.TEXT,
         )
         new_nodes = split_nodes_image([node])
         self.assertListEqual(
             [
-                TextNode("This is text with an ", TextType.NORMAL),
-                TextNode("image", TextType.IMAGES, "https://i.imgur.com/zjjcJKZ.png"),
-                TextNode(" and another ", TextType.NORMAL),
+                TextNode("This is text with an ", TextType.TEXT),
+                TextNode("image", TextType.IMAGE, "https://i.imgur.com/zjjcJKZ.png"),
+                TextNode(" and another ", TextType.TEXT),
                 TextNode(
-                    "second image", TextType.IMAGES, "https://i.imgur.com/3elNhQu.png"
+                    "second image", TextType.IMAGE, "https://i.imgur.com/3elNhQu.png"
                 ),
             ],
             new_nodes,
@@ -56,16 +56,16 @@ class TestHTMLNode(unittest.TestCase):
     def test_split_links(self):
         node = TextNode(
             "This is text with a link to an image [image](https://i.imgur.com/zjjcJKZ.png) and another link [second image](https://i.imgur.com/3elNhQu.png)",
-            TextType.NORMAL,
+            TextType.TEXT,
         )
         new_nodes = split_nodes_link([node])
         self.assertListEqual(
             [
-                TextNode("This is text with a link to an image ", TextType.NORMAL),
-                TextNode("image", TextType.LINKS, "https://i.imgur.com/zjjcJKZ.png"),
-                TextNode(" and another link ", TextType.NORMAL),
+                TextNode("This is text with a link to an image ", TextType.TEXT),
+                TextNode("image", TextType.LINK, "https://i.imgur.com/zjjcJKZ.png"),
+                TextNode(" and another link ", TextType.TEXT),
                 TextNode(
-                    "second image", TextType.LINKS, "https://i.imgur.com/3elNhQu.png"
+                    "second image", TextType.LINK, "https://i.imgur.com/3elNhQu.png"
                 ),
             ],
             new_nodes,
@@ -76,17 +76,17 @@ class TestHTMLNode(unittest.TestCase):
         text = "This is **text** with an *italic* word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
         new_nodes = text_to_textnodes(text)
         expected = [
-            TextNode("This is ", TextType.NORMAL),
+            TextNode("This is ", TextType.TEXT),
             TextNode("text", TextType.BOLD),
-            TextNode(" with an ", TextType.NORMAL),
+            TextNode(" with an ", TextType.TEXT),
             TextNode("italic", TextType.ITALIC),
-            TextNode(" word and a ", TextType.NORMAL),
+            TextNode(" word and a ", TextType.TEXT),
             TextNode("code block", TextType.CODE),
-            TextNode(" and an ", TextType.NORMAL),
-            TextNode("obi wan image", TextType.IMAGES,
+            TextNode(" and an ", TextType.TEXT),
+            TextNode("obi wan image", TextType.IMAGE,
                     "https://i.imgur.com/fJRm4Vk.jpeg"),
-            TextNode(" and a ", TextType.NORMAL),
-            TextNode("link", TextType.LINKS, "https://boot.dev"),
+            TextNode(" and a ", TextType.TEXT),
+            TextNode("link", TextType.LINK, "https://boot.dev"),
         ]
         self.assertEqual(new_nodes, expected)
 
