@@ -1,5 +1,24 @@
 from textnode import TextType, TextNode
+from leafnode import LeafNode
 import re
+
+def text_node_to_html_node(text_node: TextNode):
+    match text_node.text_type:
+        case TextType.NORMAL:
+            return LeafNode(value = text_node.text, tag=None)
+        case TextType.BOLD:
+            return LeafNode(text_node.text, "b")
+        case TextType.ITALIC:
+            return LeafNode(text_node.text, "i")
+        case TextType.CODE:
+            return LeafNode(text_node.text, "code")
+        case TextType.LINKS:
+            return LeafNode(text_node.text, "a", {"href": text_node.url or ''})
+        case TextType.IMAGES:
+            return LeafNode("", "img", {"src": text_node.url or '', "alt": text_node.text})
+        case _:
+            raise Exception("Not a valid type")
+
 
 def split_nodes_delimiter(old_nodes: list[TextNode], delimiter: str, text_type: TextType):
     result: list[TextNode] = []

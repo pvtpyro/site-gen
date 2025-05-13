@@ -1,8 +1,6 @@
 import unittest
-
-from leafnode import LeafNode
-from textnode import TextNode, TextType, text_node_to_html_node
-from functions import split_nodes_delimiter
+from textnode import TextNode, TextType
+from functions import *
 
 class TestTextNode(unittest.TestCase):
     def test_eq(self):

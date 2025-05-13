@@ -4,8 +4,8 @@ from functions import *
 from textnode import TextNode, TextType
 
 class TestHTMLNode(unittest.TestCase):
-    def test_props(self):
-        node = HTMLNode(tag = "a", value="link", props = {"href": "https://www.dandi.dev"})
+    # def test_props(self):
+        # node = HTMLNode(tag = "a", value="link", props = {"href": "https://www.dandi.dev"})
         # print(node)
 
     def test_eq(self):
@@ -13,8 +13,8 @@ class TestHTMLNode(unittest.TestCase):
         node2 = HTMLNode(tag = "a", value="link", props = {"href": "https://www.dandi.dev", "target": "_blank"})
         self.assertEqual(node, node2)
 
-    def test_children(self):
-        node = HTMLNode(tag = "a", children=[HTMLNode("b", "pie sucks")], props = {"href": "https://www.dandi.dev"})
+    # def test_children(self):
+        # node = HTMLNode(tag = "a", children=[HTMLNode("b", "pie sucks")], props = {"href": "https://www.dandi.dev"})
         # print(node)
 
     def test_extract_markdown_images(self):
@@ -29,7 +29,7 @@ class TestHTMLNode(unittest.TestCase):
         should_be = [("to boot dev", "https://www.boot.dev"), ("to youtube", "https://www.youtube.com/@bootdotdev")]
         self.assertEqual(sample, should_be) 
 
-    def test_extract_markdown_images(self):
+    def test_extract_markdown_images2(self):
         matches = extract_markdown_images(
             "This is text with an ![image](https://i.imgur.com/zjjcJKZ.png)"
         )
