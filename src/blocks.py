@@ -13,7 +13,7 @@ def markdown_to_blocks(markdown: str):
     return blocks
 
 def block_to_block_type(text:str):
-    if text.startswith("# "):
+    if re.match(r'#{1,6} ', text) and len(text.splitlines()) == 1:
         return BlockType.HEADING
     elif text.startswith("```") and text.endswith("```"):
         return BlockType.CODE

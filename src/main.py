@@ -1,6 +1,7 @@
 from os import listdir, mkdir, makedirs
 from os.path import exists, isdir, isfile, join
 from shutil import copy, rmtree, copyfile
+from page import generate_page
 
 def copy_files(source:str, destination:str):
     if not source or not destination:
@@ -16,9 +17,6 @@ def copy_files(source:str, destination:str):
         makedirs(destination, exist_ok = True)
 
     traverse_tree(source, destination)
-    
-    
-    # log path of each copied file to see what happens
 
 def traverse_tree(source:str, destination:str):
     # copy * from source and paste into destination. IE static to public
@@ -52,6 +50,6 @@ def traverse_tree(source:str, destination:str):
 
 def main():
     copy_files("static", "public")
-    
+    generate_page("content/index.md", "template.html", "public/index.html")
 
 main()

@@ -37,6 +37,7 @@ class HTMLNode:
     
     def props_to_html(self):
         string = " "
+        print("!!!DEBUG", self.props)
         if self.props:
             for key, val in self.props.items():
                 string += f'{key}="{val}" '
