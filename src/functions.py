@@ -5,20 +5,19 @@ import re
 def text_node_to_html_node(text_node: TextNode):
     match text_node.text_type:
         case TextType.TEXT:
-            return LeafNode(value = text_node.text, tag=None)
+            return LeafNode(None, text_node.text)
         case TextType.BOLD:
-            return LeafNode(text_node.text, "b")
+            return LeafNode("b", text_node.text)
         case TextType.ITALIC:
-            return LeafNode(text_node.text, "i")
+            return LeafNode("i", text_node.text)
         case TextType.CODE:
-            return LeafNode(text_node.text, "code")
+            return LeafNode("code", text_node.text)
         case TextType.LINK:
-            return LeafNode(text_node.text, "a", {"href": text_node.url or ''})
+            return LeafNode("a", text_node.text, {"href": text_node.url or ''})
         case TextType.IMAGE:
-            return LeafNode("", "img", {"src": text_node.url or '', "alt": text_node.text})
+            return LeafNode("img", "", {"src": text_node.url or '', "alt": text_node.text})
         case _:
             raise Exception("Not a valid type")
-
 
 def split_nodes_delimiter(old_nodes: list[TextNode], delimiter: str, text_type: TextType):
     result: list[TextNode] = []
@@ -39,7 +38,6 @@ def split_nodes_delimiter(old_nodes: list[TextNode], delimiter: str, text_type: 
                     # check delimiter and send proper type
                     result.append(TextNode(section, text_type))
     return result
-
 
 def extract_markdown_images(text: str):
     matches = re.findall(r"!\[(.*?)\]\((.*?)\)", text)
@@ -113,3 +111,4 @@ def text_to_textnodes(text: str):
     results = split_nodes_image(results)
     results = split_nodes_link(results)
     return results
+

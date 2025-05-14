@@ -8,6 +8,14 @@ class TextType(Enum):
     LINK = 'link'
     IMAGE = 'image'
 
+class BlockType(Enum):
+    PARAGRAPH = 'paragraph'
+    HEADING = 'heading'
+    CODE = 'code'
+    QUOTE = 'quote'
+    ULIST = 'unordered list'
+    OLIST = 'ordered list'
+
 class TextNode:
 
     def __init__(self, text: str, text_type: TextType, url: str | None = None):

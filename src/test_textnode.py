@@ -36,5 +36,6 @@ class TestTextNode(unittest.TestCase):
         # print(new_nodes)
         self.assertEqual(new_nodes, should_be)
 
+
 if __name__ == "__main__":
     unittest.main()
