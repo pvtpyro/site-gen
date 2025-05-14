@@ -1,6 +1,6 @@
-from os import listdir, mkdir, makedirs
+from os import listdir, makedirs
 from os.path import exists, isdir, isfile, join
-from shutil import copy, rmtree, copyfile
+from shutil import rmtree, copyfile
 from page import generate_page
 
 def copy_files(source:str, destination:str):

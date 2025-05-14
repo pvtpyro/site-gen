@@ -1,4 +1,4 @@
-from os import makedirs, mkdir
+from os import makedirs
 from blocks import markdown_to_html_node
 from os.path import dirname, exists
 
