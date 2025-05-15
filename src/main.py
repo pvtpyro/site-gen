@@ -2,6 +2,9 @@ from os import listdir, makedirs
 from os.path import exists, isdir, isfile, join
 from shutil import rmtree, copyfile
 from page import generate_pages_recursive
+import sys
+
+basepath = sys.argv[1] or "/"
 
 def copy_files(source:str, destination:str):
     if not source or not destination:
@@ -49,8 +52,8 @@ def traverse_tree(source:str, destination:str):
             traverse_tree(source_path, destination_path)
 
 def main():
-    copy_files("static", "public")
+    copy_files("static", "docs")
     # generate_page("content/index.md", "template.html", "public/index.html")
-    generate_pages_recursive("content", "template.html", "public")
+    generate_pages_recursive("content", "template.html", "docs", basepath)
 
 main()

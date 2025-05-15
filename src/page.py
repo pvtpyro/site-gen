@@ -12,7 +12,7 @@ def extract_title(markdown:str):
             return line[2:]
         raise Exception("No heading level 1 provided")
     
-def generate_page(from_path:str, template_path:str, dest_path:str):
+def generate_page(from_path:str, template_path:str, dest_path:str, basepath:str):
     print("-----------------GENERATE PAGE FUNC -----------------")
     print(f"Generating page from {from_path} to {dest_path} using {template_path}")
     # Read the markdown file at from_path and store the contents in a variable.
@@ -35,6 +35,7 @@ def generate_page(from_path:str, template_path:str, dest_path:str):
     # Replace the {{ Title }} and {{ Content }} 
     # placeholders in the template with the HTML and title you generated.
     index_content = template_file.replace("{{ Title }}", title).replace("{{ Content }}", html_string)
+    index_content = index_content.replace('href="/', 'href="{basepath}').replace('src="/', 'src="{basepath}')
 
     # Write the new full HTML page to a file at dest_path. 
     # Be sure to create any necessary directories if they don't exist.
@@ -58,7 +59,7 @@ def generate_page(from_path:str, template_path:str, dest_path:str):
     except Exception as e:
         print(f"failed to write file: {e}")
 
-def generate_pages_recursive(dir_path_content:str, template_path:str, dest_dir_path:str):
+def generate_pages_recursive(dir_path_content:str, template_path:str, dest_dir_path:str, basepath:str):
     print("-----------------GENERATE PAGES RECUR FUNC -----------------")
     # Crawl every entry in the content directory
     all_content = listdir(dir_path_content)
@@ -79,13 +80,13 @@ def generate_pages_recursive(dir_path_content:str, template_path:str, dest_dir_p
             if ext == ".md":
                 new_path = root + ".html"
                 print(f"generate the new file {new_path}")
-                generate_page(source_path, template_path, new_path)
+                generate_page(source_path, template_path, new_path, basepath)
         
         # if a dir, create the dir if it doesnt exist, then recall this func
         elif isdir(source_path):
             print(source_path, "is a dir")
             makedirs(destination_path)
 
-            generate_pages_recursive(source_path, template_path, destination_path)
+            generate_pages_recursive(source_path, template_path, destination_path, basepath)
 
     print("i got to the end")
