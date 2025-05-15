@@ -4,7 +4,7 @@ from shutil import rmtree, copyfile
 from page import generate_pages_recursive
 import sys
 
-basepath = sys.argv[1] or "/"
+basepath = sys.argv[1] if len(sys.argv) > 1 else "/"
 
 def copy_files(source:str, destination:str):
     if not source or not destination:
@@ -54,5 +54,6 @@ def traverse_tree(source:str, destination:str):
 def main():
     copy_files("static", "docs")
     generate_pages_recursive("content", "template.html", "docs", basepath)
+    print('syswhat?', sys.argv)
 
 main()
