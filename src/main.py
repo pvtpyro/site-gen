@@ -53,7 +53,6 @@ def traverse_tree(source:str, destination:str):
 
 def main():
     copy_files("static", "docs")
-    # generate_page("content/index.md", "template.html", "public/index.html")
     generate_pages_recursive("content", "template.html", "docs", basepath)
 
 main()
