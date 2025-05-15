@@ -1,6 +1,6 @@
-from os import makedirs
+from os import makedirs, listdir
 from blocks import markdown_to_html_node
-from os.path import dirname, exists
+from os.path import dirname, exists, join, isfile, isdir, splitext
 
 
 def extract_title(markdown:str):
@@ -57,3 +57,35 @@ def generate_page(from_path:str, template_path:str, dest_path:str):
         print("successfully create page")
     except Exception as e:
         print(f"failed to write file: {e}")
+
+def generate_pages_recursive(dir_path_content:str, template_path:str, dest_dir_path:str):
+    print("-----------------GENERATE PAGES RECUR FUNC -----------------")
+    # Crawl every entry in the content directory
+    all_content = listdir(dir_path_content)
+
+    # For each markdown file found, generate a new .html file using the same template.html. 
+    # The generated pages should be written to the public directory in the same directory structure.
+
+    # loop over all_content
+    for item in all_content:
+        source_path = join(dir_path_content, item)
+        destination_path = join(dest_dir_path, item)
+        # print(f"item: {item}. source path: {source_path}, destination path: {destination_path}")
+
+        # if a file, do work
+        if isfile(source_path):
+            root, ext = splitext(destination_path)
+            print(source_path, f"is a file with extension {ext}")
+            if ext == ".md":
+                new_path = root + ".html"
+                print(f"generate the new file {new_path}")
+                generate_page(source_path, template_path, new_path)
+        
+        # if a dir, create the dir if it doesnt exist, then recall this func
+        elif isdir(source_path):
+            print(source_path, "is a dir")
+            makedirs(destination_path)
+
+            generate_pages_recursive(source_path, template_path, destination_path)
+
+    print("i got to the end")
