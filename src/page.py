@@ -35,7 +35,7 @@ def generate_page(from_path:str, template_path:str, dest_path:str, basepath:str)
     # Replace the {{ Title }} and {{ Content }} 
     # placeholders in the template with the HTML and title you generated.
     index_content = template_file.replace("{{ Title }}", title).replace("{{ Content }}", html_string)
-    index_content = index_content.replace('href="/', 'href="{basepath}').replace('src="/', 'src="{basepath}')
+    index_content = index_content.replace('href="/', f'href="{basepath}').replace('src="/', f'src="{basepath}')
 
     # Write the new full HTML page to a file at dest_path. 
     # Be sure to create any necessary directories if they don't exist.
